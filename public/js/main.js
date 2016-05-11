@@ -60,4 +60,55 @@ $(function initializeMap (){
   // drawMarker('restaurant', [40.705137, -74.013940]);
   // drawMarker('activity', [40.716291, -73.995315]);
 
+  for (var key in hotels) {
+  var newop = new Option(hotels[key].name, key)
+  $('#hotel-choices').append(newop);
+  }
+  for (var key in restaurants) {
+    $('#restaurant-choices').append(new Option(restaurants[key].name, key));
+  }
+  for (var key in activities) {
+    $('#activity-choices').append(new Option(activities[key].name, key));
+  }
+
+  function getCoords(selection, model, index) {
+    var coords = model[index].place.location;
+    return coords;
+  }
+
+  $('.btn-hotel').click(function() {
+    var selectedHotel = $('#hotel-choices option:selected');
+    console.log(selectedHotel);
+    var index = selectedHotel[0].value;
+
+    $('.itinerary-item.hotel-item').append('<span class="title">'+selectedHotel.text()+"</span>");
+    $('.itinerary-item.hotel-item').append('<button class="btn btn-xs btn-danger remove btn-circle">x</span>');
+    drawMarker('hotel',getCoords(selectedHotel,hotels, index));
+  });
+
+  $('.btn-restaurant').click(function() {
+    var selectedRestaurant = $('#restaurant-choices option:selected');
+    var index = selectedRestaurant[0].value;
+
+    $('.itinerary-item.restaurant-item').append('<span class="title">'+selectedRestaurant.text()+"</span>");
+    $('.itinerary-item.restaurant-item').append('<button class="btn btn-xs btn-danger remove btn-circle">x</span>');
+    drawMarker('restaurant',getCoords(selectedRestaurant,restaurants, index));
+
+  });
+
+  $('.btn-activity').click(function() {
+    var selectedActivity = $('#activity-choices option:selected');
+    var index = selectedActivity[0].value;
+
+    $('.itinerary-item.activity-item').append('<span class="title">'+selectedActivity.text()+"</span>");
+    $('.itinerary-item.activity-item').append('<button class="btn btn-xs btn-danger remove btn-circle">x</span>');
+    drawMarker('activity',getCoords(selectedActivity,activities, index));
+
+  });
+
+  $('').click(function() {
+
+  });
+
+
 });
