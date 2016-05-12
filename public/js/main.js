@@ -78,20 +78,20 @@ $(function initializeMap (){
 
   $('.btn-hotel').click(function() {
     var selectedHotel = $('#hotel-choices option:selected');
-    console.log(selectedHotel);
     var index = selectedHotel[0].value;
 
-    $('.itinerary-item.hotel-item').append('<span class="title">'+selectedHotel.text()+"</span>");
-    $('.itinerary-item.hotel-item').append('<button class="btn btn-xs btn-danger remove btn-circle">x</span>');
+    $('.itinerary-item.hotel-item').append('<span class="title" id=' + index + '>'+selectedHotel.text()+"</span>");
+    $('.itinerary-item.hotel-item').append('<button class="btn btn-xs btn-danger remove btn-circle" >x</button>');
     drawMarker('hotel',getCoords(selectedHotel,hotels, index));
+    console.log($('.hotel-item').next());
   });
 
   $('.btn-restaurant').click(function() {
     var selectedRestaurant = $('#restaurant-choices option:selected');
     var index = selectedRestaurant[0].value;
 
-    $('.itinerary-item.restaurant-item').append('<span class="title">'+selectedRestaurant.text()+"</span>");
-    $('.itinerary-item.restaurant-item').append('<button class="btn btn-xs btn-danger remove btn-circle">x</span>');
+    $('.itinerary-item.restaurant-item').append('<span class="title" id=' + index + '>'+selectedRestaurant.text()+"</span>");
+    $('.itinerary-item.restaurant-item').append('<button class="btn btn-xs btn-danger remove btn-circle">x</button>');
     drawMarker('restaurant',getCoords(selectedRestaurant,restaurants, index));
 
   });
@@ -100,15 +100,25 @@ $(function initializeMap (){
     var selectedActivity = $('#activity-choices option:selected');
     var index = selectedActivity[0].value;
 
-    $('.itinerary-item.activity-item').append('<span class="title">'+selectedActivity.text()+"</span>");
-    $('.itinerary-item.activity-item').append('<button class="btn btn-xs btn-danger remove btn-circle">x</span>');
+    $('.itinerary-item.activity-item').append('<span class="title" id='+ index + '>'+selectedActivity.text()+"</span>");
+    $('.itinerary-item.activity-item').append('<button class="btn btn-xs btn-danger remove btn-circle">x</button>');
     drawMarker('activity',getCoords(selectedActivity,activities, index));
 
   });
 
-  $('').click(function() {
-
+  $('.itinerary-item.hotel-item').on('click', '.remove', function () {
+    $(this).prev().remove();
+    $(this).remove();
   });
 
+  $('.itinerary-item.restaurant-item').on('click', '.remove', function () {
+    $(this).prev().remove();
+    $(this).remove();
+  });
+
+  $('.itinerary-item.activity-item').on('click', '.remove', function () {
+    $(this).prev().remove();
+    $(this).remove();
+  });
 
 });
