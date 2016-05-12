@@ -54,6 +54,7 @@ $(function initializeMap (){
       position: latLng
     });
     marker.setMap(currentMap);
+    return marker;
   }
 
   // drawMarker('hotel', [40.705137, -74.007624]);
@@ -82,8 +83,8 @@ $(function initializeMap (){
 
     $('.itinerary-item.hotel-item').append('<span class="title" id=' + index + '>'+selectedHotel.text()+"</span>");
     $('.itinerary-item.hotel-item').append('<button class="btn btn-xs btn-danger remove btn-circle" >x</button>');
-    drawMarker('hotel',getCoords(selectedHotel,hotels, index));
-    console.log($('.hotel-item').next());
+    var marker = drawMarker('hotel',getCoords(selectedHotel,hotels, index));
+    $('<button class="btn btn-xs btn-danger remove btn-circle" >x</button>').data('map', marker);
   });
 
   $('.btn-restaurant').click(function() {
@@ -108,6 +109,9 @@ $(function initializeMap (){
 
   $('.itinerary-item.hotel-item').on('click', '.remove', function () {
     $(this).prev().remove();
+    var marker = $(this).text($(this).data('map'));
+    console.log(marker);
+    marker.setMap(null);
     $(this).remove();
   });
 
